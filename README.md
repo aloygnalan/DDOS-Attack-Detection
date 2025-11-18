@@ -1,98 +1,156 @@
+# 🚨 DoS Attack Detection & SMS Alerting System
 
-# 🚨 **DoS Attack Detection & SMS Alerting System** 🚨
+## 📘 Overview
 
-## 📚 **General Overview**
+This project provides a **real-time DoS attack detection system** that monitors network traffic and sends **SMS alerts** whenever suspicious packet activity is detected.
+The system is built using:
 
-This Python-based **DoS Attack Detection & SMS Alerting System** monitors network traffic in real-time for signs of Denial of Service (DoS) attacks and sends an **SMS alert** via Twilio when suspicious activity is detected. It's designed to work seamlessly with **Scapy** for packet sniffing and **Twilio API** for SMS notification.
+* **Scapy** → for live packet sniffing
+* **Twilio API** → for sending SMS alerts
+* **Python** → for detection logic and automation
 
-### 💡 **Key Features**
-1. **Real-time Monitoring**: Uses Scapy to sniff network packets in real-time.
-2. **DoS Attack Detection**: Detects and triggers alerts based on packet counts from specific IPs within a defined window.
-3. **SMS Alerts**: Sends an SMS alert via Twilio when suspicious activity (DoS attack) is detected.
-4. **Customizable Detection Parameters**: You can set the packet threshold and detection window as per your requirements.
-5. **Simple Setup**: Easy to deploy with clear instructions.
+This repository contains a **refined and improved version** of the original concept, implemented as a standalone project for learning, testing, and SOC-based skill development.
 
-## 🛠️ **How to Setup & Use**
+---
 
-### 1. **Clone the Repository**
+## ✨ Features
 
-First, clone the project repository:
+### 🔍 Real-Time Network Monitoring
+
+Continuously inspects incoming packets and tracks packet behaviour from different IP addresses.
+
+### ⚠️ DoS Attack Identification
+
+Detects possible DoS attacks by checking:
+
+* Packet frequency
+* Time window
+* Abnormal spikes from any source IP
+
+### 📱 SMS Notifications (Twilio)
+
+Automatically sends an SMS alert when:
+
+* A source IP crosses the defined packet threshold
+* Suspicious behaviour is detected
+
+### 🛠️ Customizable Parameters
+
+Easily modify:
+
+* Detection threshold
+* Time window
+* Interface to monitor
+* SMS content
+
+### 🚀 Easy Setup
+
+Simple dependency installation and configuration steps to get started quickly.
+
+---
+
+## 🧰 Installation & Setup
+
+### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/Akilash-A/Detecting-DDOS-Attack.git
-cd Detecting-DDOS-Attack
+git clone https://github.com/YOUR-USERNAME/Your-Repo-Name.git
+cd Your-Repo-Name
 ```
 
-### 2. **Install Dependencies**
+---
 
-For Linux-based systems (Ubuntu/Debian/Fedora), use the following commands to install the necessary dependencies:
+## 2️⃣ Install Dependencies
 
-#### For Ubuntu/Debian:
+### For Ubuntu/Debian
 
 ```bash
 sudo apt update
-sudo apt install python3-pip
-sudo apt install python3-scapy
-sudo apt install python3-twilio
+sudo apt install python3-pip python3-scapy python3-twilio -y
 ```
 
-#### For Fedora:
+### For Fedora
 
 ```bash
-sudo dnf install python3-pip
-sudo dnf install python3-scapy
-sudo dnf install python3-twilio
+sudo dnf install python3-pip python3-scapy python3-twilio -y
 ```
 
-#### Install Python Dependencies:
+### Python Dependencies
 
 ```bash
-python3 -m pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
-### 3. **Configure Twilio Credentials**
+---
 
-In the Python script, replace the placeholders with your **Twilio Account SID**, **Auth Token**, **Twilio Phone Number**, and the **Recipient Phone Number**:
+## 3️⃣ Configure Twilio Credentials
+
+Update the placeholders in the script:
 
 ```python
-ACCOUNT_SID = 'ACCOUNT_SID'  # Replace with your Account SID
-AUTH_TOKEN = 'AUTH_TOKEN'  # Replace with your Auth Token
-TWILIO_PHONE_NUMBER = 'TWILIO_PHONE_NUMBER'  # Replace with your Twilio phone number
-TO_PHONE_NUMBER = 'TO_PHONE_NUMBER'  # Replace with the recipient's phone number
+ACCOUNT_SID = "YOUR_SID"
+AUTH_TOKEN = "YOUR_AUTH_TOKEN"
+TWILIO_PHONE_NUMBER = "YOUR_TWILIO_NUMBER"
+TO_PHONE_NUMBER = "RECIPIENT_NUMBER"
 ```
 
-### 4. **Run the Script**
+> **Tip:** Prefer using environment variables instead of hardcoding credentials.
 
-Execute the script to start monitoring network traffic and send alerts:
+---
+
+## ▶️ Running the Tool
+
+Start detection:
 
 ```bash
 python3 ddos-attack-tool.py
 ```
 
-🚀 **The system will start monitoring network traffic and send SMS alerts in case of a potential DoS attack!**
+Once active, the system continuously monitors traffic and triggers alerts automatically.
 
-## 🔐 **Security Considerations**
+---
 
-- **Environment Variables**: Store your Twilio credentials in environment variables to ensure that sensitive information isn't exposed in the code.
-- **Network Security**: Make sure you run this tool in a controlled environment and have permission to sniff network traffic.
-
-## ⚡ **Error Handling**
-
-The script includes basic error handling to ensure that the monitoring process is resilient. It catches exceptions during packet sniffing and SMS alert sending, ensuring the system continues to run smoothly.
-
-## 💡 **Potential Improvements**
-- **Multi-Network Support**: Extend the system to monitor multiple network interfaces.
-- **Improved Logging**: Implement advanced logging to capture and review attack patterns.
-- **Web Dashboard**: Develop a web interface to display the attack statistics and logs in real-time.
-
-## 📈 **Usage Example**
-
-Once the script is running, the system will continuously monitor network traffic. When an attack is detected, it will send an SMS to the configured recipient with a detailed message:
+## 📩 Example SMS Alert
 
 ```
-DoS detected! IP: 192.168.1.1, Packets: 60 in 5 seconds. Time: 2024-12-02 10:30:45
+⚠️ DoS Detected!
+Source IP: 192.168.1.10
+Packets: 80 in 5 seconds
+Time: 2024-12-02 10:30:45
 ```
 
-📱 **SMS Alert**: This SMS will be sent to the specified recipient.
+---
 
+## 🔐 Security Best Practices
 
+* Use **environment variables** for Twilio keys
+* Run the tool **only on networks you own or have permission to monitor**
+* Apply least-privilege principles
+* Avoid exposing the script to the public with your credentials inside
+
+---
+
+## 🛠️ Future Enhancements
+
+These improvements can be added later:
+
+* Web dashboard for live statistics
+* Multi-interface packet monitoring
+* Automatic IP blocking (with iptables/Wazuh/SOC workflows)
+* Persistent logging for audit and analysis
+
+---
+
+## 📘 About This Repository
+
+This repository contains an **independent implementation** of a DoS detection + SMS alerting concept.
+It has been rebuilt, cleaned, and structured in a new format to make it more professional, presentable, and usable in real SOC learning environments.
+
+Suitable for:
+
+* Cybersecurity students
+* SOC analysts (beginner level)
+* Python network-security practice
+* Portfolio projects
+
+---
